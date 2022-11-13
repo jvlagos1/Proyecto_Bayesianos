@@ -1,0 +1,102 @@
+\documentclass{article}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb, amsmath, amsbsy}
+\usepackage{mathdots}
+\usepackage{mathrsfs}
+\usepackage{stackrel}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\graphicspath{{Tareas/}}
+\usepackage{setspace}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{parskip}
+\usepackage{float}
+\usepackage{enumerate}
+\usepackage[colorlinks=false,pdfborder={0 0 0}]{hyperref}
+\usepackage[usenames]{color}
+\usepackage[dvipsnames]{xcolor}
+
+
+\title{Entrega Proyecto}
+\author{Javiera Lagos Turenne, Diego Gallo}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\section{Análisis Exploratorio}
+\subsection{Análisis Variables}
+Para hacer el análisis del comportamiento de los precios de acciones de las distintas empresas a través del tiempo, se contemplarán los siguientes factores: 
+\subsubsection{Inflación} Este índice mide el aumento generalizado en los precios de los bienes y servicios de una economía durante un período de tiempo. En este caso, se usará el índice de inflación en Estados Unidos durante el período 2015-2021.
+\subsubsection{Precio Ajustado} El precio de la acción se ajustará con respecto al índice de inflación, por lo que se tomará como base el precio del dolar de enero 2015. De esta manera se tiene: 
+\[
+USD_{i} = USD_{i-1}*(1+I_{i}), \qquad i=mes
+\]
+donde $I_{03-2015}$ corresponde al porcentaje de inflación para el mes i.
+\subsubsection{Retorno} El retorno corresponde al aumento en el precio de la acción entre los tiempos $t$ y $t+1$ de la siguiente manera: 
+\[
+Retorno = \left(\frac{precio_{(t+1)}-precio_{(t)}}{precio_{(t)}}\right)*100
+\]
+Por lo será la diferencia porcentual del precio entre dos períodos.
+\subsubsection{Producto Interno Bruto (PIB)} El PIB representa el valor monetario de la producción de bienes y servicios de demanda final de un país o región durante un período determinado. En este caso, como se está analizando la bolsa estadounidense, se considerará el PIB de este último. Este indicador se tomará de la siguiente manera:
+\[
+\left(\frac{PIB_{(t+1)}-PIB_{(t)}}{PIB_{(t)}}\right)*100
+\]
+Por lo que medirá la diferencia porcentual entre un período y el anterior. 
+\subsection{Coca-Cola Company} Coca-Cola Company es una empresa multinacional de bebidas gaseosas con sedes alrededor del mundo. Nuestra creencia inicial (sin basarse en los datos) es que la pandemia mundial no debería afectar su precio en la bolsa de manera significativa, ya que es un bien que se consume diariamente y que forma parte de la dieta diaria de muchos hogares. 
+\subsection{Amazon} Amazon es una empresa tecnólogica multinacional especializada en e-commerce, inteligencia artificial, streaming digital, entre otros. La creencia inicial en este caso es que la pandemia debería favorecer a la empresa con respecto a su precio en la bolsa. Esto porque, el confinamiento debería generar un aumento en las plataformas digitales de streaming, debido al aumento en el tiempo de ocio. Además, la restricción de ir a oficinas o reunirse con personas, debería generar un aumento en las plataformas de almacenamiento online ("clouds").
+\subsection{Delta Airlines} Delta Airlines es una aerolínea estadounidense multinacional. Nuestra creencia inicial (sin basarse en los datos) es que la pandemia debería afectar significativamente su precio en la bolsa, ya que en este período los viajes en avión fueron practicamente inexistentes. 
+\subsection{ARCA Biopharma} es un laboratorio estadounidense centrado en enfermedades cardiovasculares. La creencia inicial en este caso, es que la pandemia debería favorecer su precio en la bolsa, ya que durante este período hubo un aumento importante en la compra de fármacos y en la consciencia de la salud en las personas.
+\subsection{Caesar's Palace Casino} Caesar's Palace Casinos es un hotel y casino con sede en Las Vegas, Nevada. La creencia inicial es que la pandemia debería generar una baja significativa en su precio en la bolsa. Esto porque, durante este período, el casino tuvo que cerrar sus puertas, ya que no estaba permitida la aglomeración de gente en lugares cerrados. 
+\subsection{Colgate-Palmolive} Colgate-Palmolive es una empresa estadounidense multinacional de cuidado personal, donde Colgate es una línea de dentríficos, mientras que palmolive es una línea que produce principalmente jabones y productos para el cuidado de la piel. La creencia inicial es que la pandemia no debería afectar significativamente su precio en la bolsa, ya que sus productos son de uso cotidiano y fundamentales en la rutina diaria de higiene personal.
+\section{Modelo} 
+\subsection{Definicion Variables} Primero, se tiene que {\bf Y} corresponde al precio de cierre en el periodo 2015 a 2019 e ${\bf Y}_{nuevo}$ al precio de  cierre en el periodo 2020 a 2022. Ademas, se tiene que:
+\[
+{\bf X} = (1,{\bf X_1},{\bf X_2},{\bf X_3})
+\]
+donde $X_1$= Volumen, $X_2$=Inflacion Acumulada, $X_3$=PIB en los a;os 2015 a 2019. Mientras que ${\bf X}_{nuevo}$ se expresa de la siguiente manera:
+\[
+{\bf X}_{nuevo} = (1,{\bf X_{1'}},{\bf X_{2'}},{\bf X_{3'}})
+\]
+Donde los $X_i$ representan las mismas variables pero para los a;os 2020 a 2022. \\
+Con todo esto, se puede escribir el modelo de la siguiente manera:
+\[
+ {\bf Y}_{nuevo}={\bf X}_{nuevo}*\boldsymbol{\beta}+\epsilon_{nuevo}
+\]
+Donde $\boldsymbol{\beta}$ corresponde a los coeficientes de la regresion inicial.Teniendo todo esto en cuenta, se tiene que que la funcion de verosimilitud es la siguiente:
+\[
+({\bf Y}_{nuevo}|{\bf Y},{\bf X},{\bf X}_{nuevo})\sim t_m\left(n-p,{\bf X}_{nuevo}\hat{{\boldsymbol \beta}},\frac{S^2}{n-p}(I_m+{\bf X}_{nuevo}({\bf X}^T{\bf X})^{-1}{\bf X}_{nuevo}^T\right)
+\]
+Donde n corrresponde a la cantidad de datos del modelo inicial, p a la cantidad de coeficientes $\beta$ y m a la cantidad de datos del nuevo modelo. Ademas, se tiene que:
+\[
+S^2 = ({\bf Y}-{\bf X}\hat{\boldsymbol \beta})^T({\bf Y}-{\bf X}\hat{\boldsymbol \beta})
+\]
+\[
+\hat{\boldsymbol \beta} = ({\bf X}^T{\bf X})^{-1}{\bf X}^T{\bf Y}
+\]
+Finalmente, se puede simular la posteriori predictiva de la siguiente manera: 
+\[
+\Tilde{\sigma}^2 \sim \chi^{-2}(\nu_n,\sigma^2_n)
+\]
+\[
+\Tilde{\beta} \sim N_p({\bf b}_n, \Tilde{\sigma}^2B_n)
+\]
+\[
+\Tilde{{\bf y}}_{nuevo} \sim N_m({\bf X}_{nuevo}\Tilde{\beta},\Tilde{\sigma}^2I_m)
+\]
+Donde:
+\begin{itemize}
+\item $\nu_n = n-p$
+\item $\nu_n\sigma^2 = -p\Tilde{\sigma}^2+S^2+(\beta-\hat{\beta})^T{\bf X}^T{\bf X}(\beta - \hat{\beta}$
+    \item $B_n = (\hat{\sigma}^{-2}{\bf X}^T{\bf X})^{-1}$
+    \item $b_n = B_n(\hat{\sigma}^{-2}{\bf X}^T{\bf y})$
+
+\end{itemize}
+
+\end{document}
